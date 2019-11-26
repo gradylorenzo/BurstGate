@@ -627,7 +627,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 837964434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.67, y: 6.4, z: -1.84}
+  m_LocalPosition: {x: 0, y: 6.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1496679787}
@@ -663,11 +663,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb7a6eb9baf9974a8e390ab7de0186b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipID: testShip
   Attributes:
     Thrust: {x: 10, y: 10, z: 10}
     Torque: 10
     DockingPortPosition: {x: 0, y: 0, z: 0}
-  isDocked: 0
+  DockingPortOffset: {x: 0, y: 0, z: 0}
+  dockAvailable: 0
 --- !u!1 &845621247
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,6 +866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221288914}
   - component: {fileID: 1221288915}
+  - component: {fileID: 1221288916}
   m_Layer: 8
   m_Name: DockingPort (1)
   m_TagString: Untagged
@@ -898,8 +901,23 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.64
+  m_Radius: 0.91
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1221288916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221288913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f3a10aceaf05a40acf53df189e286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortType: 0
+  DockingPortOffset: {x: 0, y: -2, z: 0}
+  sd: {fileID: 837964438}
 --- !u!1 &1429968218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,9 +1229,10 @@ GameObject:
   - component: {fileID: 1637761880}
   - component: {fileID: 1637761879}
   - component: {fileID: 1637761878}
+  - component: {fileID: 1637761881}
   m_Layer: 0
   m_Name: DockingPort
-  m_TagString: BaseDockingPort
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1262,6 +1281,21 @@ Transform:
   m_Father: {fileID: 2003451236}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1637761881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637761877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f3a10aceaf05a40acf53df189e286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PortType: 1
+  DockingPortOffset: {x: 0, y: 0, z: 0}
+  sd: {fileID: 0}
 --- !u!1001 &1730901959
 PrefabInstance:
   m_ObjectHideFlags: 0

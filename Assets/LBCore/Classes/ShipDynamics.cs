@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ShipDynamics : MonoBehaviour
 {
+    #region DataTypes
     [Serializable]
     public struct ShipDynamicsAttributes
     {
@@ -14,21 +15,26 @@ public class ShipDynamics : MonoBehaviour
 
         public Vector3 DockingPortPosition;
     }
+    #endregion
 
+    #region Fields
+    public string shipID;
     [SerializeField]
     public ShipDynamicsAttributes Attributes;
-    
-    private Rigidbody rb;
-    [Space(20)]
-    [Header("MAKE THESE PRIVATE AFTER TESTING")]
-    //MAKE THESE PRIVATE AFTER TESTING
-    public bool isDocked;
+    #endregion
 
-    //
-
+    #region Properties
+    public Rigidbody rb { get; private set; }
+    public bool isDocked { get; private set; }
+    #endregion
+    public DockingPort AvailableDock { get; private set; }
+    public Vector3 DockingPortOffset;
+    public bool dockAvailable = false;
+    #region Methods
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        AvailableDock = null;
     }
 
     #region public methods
@@ -48,19 +54,51 @@ public class ShipDynamics : MonoBehaviour
         }
     }
 
-    public void UpdateAvailablePort(GameObject port)
+    public void SetDockingPortOffset(Vector3 offset)
     {
-
+        DockingPortOffset = offset;
     }
 
-    public void Dock()
+    public void UpdateAvailableDock(DockingPort dock)
     {
-
+        AvailableDock = dock;
+        if(dock != null)
+        {
+            dockAvailable = true;
+        }
+        else
+        {
+            dockAvailable = false;
+        }
     }
 
-    public void Undock()
+    public void SwitchDock()
     {
+        if (isDocked)
+        {
+            Undock();
+            isDocked = false;
+        }
+        else
+        {
+            if(AvailableDock != null)
+            {
+                Dock();
+            }
+        }
+    }
+    #endregion
 
+    private void Dock()
+    {
+        transform.position = AvailableDock.DockingPortOffset - DockingPortOffset;
+        rb.velocity = Vector3.zero;
+        isDocked = true;
+    }
+
+    private void Undock()
+    {
+        isDocked = false;
     }
     #endregion
 }

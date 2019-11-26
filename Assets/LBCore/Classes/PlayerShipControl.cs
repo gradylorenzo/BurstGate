@@ -22,4 +22,12 @@ public class PlayerShipControl : MonoBehaviour
         sd.ApplyThrust(new Vector3(x, y, z));
         sd.ApplyTorque(t);
     }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("CONTROL_DOCK"))
+        {
+            sd.SwitchDock();
+        }
+    }
 }
