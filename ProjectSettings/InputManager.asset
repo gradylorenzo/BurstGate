@@ -73,8 +73,8 @@ InputManager:
     m_Name: CONTROL_Y
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: f
-    positiveButton: r
+    negativeButton: c
+    positiveButton: space
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1
