@@ -644,7 +644,7 @@ Rigidbody:
   m_GameObject: {fileID: 837964434}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -663,11 +663,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb7a6eb9baf9974a8e390ab7de0186b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipID: testShip
   Attributes:
     Thrust: {x: 10, y: 10, z: 10}
-    Torque: 10
+    Torque: 30
+    InertialDampenerMultiplier: 1.25
     DockingPortPosition: {x: 0, y: 0, z: 0}
+  rb: {fileID: 837964437}
   DockingPortOffset: {x: 0, y: 0, z: 0}
   dockAvailable: 0
 --- !u!1 &845621247
@@ -1206,7 +1207,7 @@ MonoBehaviour:
   target: {fileID: 837964436}
   defaultDistance: 50
   zoomSpeed: 0.1
-  panSpeed: 0.1
+  panSpeed: 0.5
   xSpeed: 10
   ySpeed: 10
   zSpeed: 10

@@ -12,57 +12,37 @@ public class ShipDynamics : MonoBehaviour
     {
         public Vector3 Thrust;
         public float Torque;
-
+        public float InertialDampenerMultiplier;
         public Vector3 DockingPortPosition;
     }
     #endregion
 
-    #region Fields
-    public string shipID;
+    #region Common
     [SerializeField]
     public ShipDynamicsAttributes Attributes;
-    #endregion
+    public Rigidbody rb;
 
-    #region Properties
-    public Rigidbody rb { get; private set; }
-    public bool isDocked { get; private set; }
-    #endregion
-    public DockingPort AvailableDock { get; private set; }
-    public Vector3 DockingPortOffset;
-    public bool dockAvailable = false;
-    #region Methods
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         AvailableDock = null;
     }
+    #endregion
 
-    #region public methods
-    public void ApplyThrust(Vector3 direction)
-    {
-        if (!isDocked)
-        {
-            rb.AddRelativeForce(Vector3.Scale(direction, Attributes.Thrust));
-        }
-    }
-
-    public void ApplyTorque (float direction)
-    {
-        if (!isDocked)
-        {
-            rb.AddRelativeTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
-        }
-    }
+    #region Docking
+    public DockingPort AvailableDock { get; private set; }
+    public Vector3 DockingPortOffset;
+    public bool dockAvailable = false;
+    public bool isDocked { get; private set; }
 
     public void SetDockingPortOffset(Vector3 offset)
     {
         DockingPortOffset = offset;
     }
-
     public void UpdateAvailableDock(DockingPort dock)
     {
         AvailableDock = dock;
-        if(dock != null)
+        if (dock != null)
         {
             dockAvailable = true;
         }
@@ -71,7 +51,6 @@ public class ShipDynamics : MonoBehaviour
             dockAvailable = false;
         }
     }
-
     public void SwitchDock()
     {
         if (isDocked)
@@ -81,24 +60,101 @@ public class ShipDynamics : MonoBehaviour
         }
         else
         {
-            if(AvailableDock != null)
+            if (AvailableDock != null)
             {
                 Dock();
             }
         }
     }
-    #endregion
-
     private void Dock()
     {
         transform.position = AvailableDock.DockingPortOffset - DockingPortOffset;
         rb.velocity = Vector3.zero;
         isDocked = true;
     }
-
     private void Undock()
     {
         isDocked = false;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(rb.velocity + transform.position, 1);
+    }
+    #endregion
+
+    #region Thrust Control and Inertial Dampeners
+    private bool useDampeners;
+    public bool UseDampeners
+    {
+        get
+        {
+            return useDampeners;
+        }
+    }
+
+    private Vector3 currentInput;
+    private Vector3 finalThrust;
+
+    private void ProcessInput()
+    {
+        Vector3 velocity = transform.InverseTransformDirection(-rb.velocity.normalized);
+        Vector3 dampenerTrust = Vector3.zero;
+
+        if (useDampeners)
+        {
+            if (currentInput.x == 0)
+            {
+                dampenerTrust.x = velocity.x;
+            }
+
+            if (currentInput.y == 0)
+            {
+                dampenerTrust.y = velocity.y;
+            }
+
+            if (currentInput.z == 0)
+            {
+                dampenerTrust.z = velocity.z;
+            }
+        }
+
+        dampenerTrust = Vector3.Scale(dampenerTrust, Attributes.Thrust) * Attributes.InertialDampenerMultiplier;
+        currentInput = Vector3.Scale(currentInput, Attributes.Thrust);
+
+        finalThrust = dampenerTrust + currentInput;
+
+        DoFinalForce(finalThrust);
+
+        currentInput = Vector3.zero;
+        finalThrust = Vector3.zero;
+    }
+    private void DoFinalForce(Vector3 force)
+    {
+        if (!isDocked)
+        {
+            force = transform.TransformDirection(force);
+            rb.AddForce(force);
+        }
+    }
+
+    #endregion
+
+    #region Public methods
+    public void ToggleInertialDampeners()
+    {
+        useDampeners = !useDampeners;
+    }
+    public void ApplyThrust(Vector3 direction)
+    {
+        currentInput = direction;
+        ProcessInput();
+    }
+    public void ApplyTorque (float direction)
+    {
+        if (!isDocked)
+        {
+            rb.AddRelativeTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
+        }
     }
     #endregion
 }

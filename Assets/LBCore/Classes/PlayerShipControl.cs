@@ -29,5 +29,10 @@ public class PlayerShipControl : MonoBehaviour
         {
             sd.SwitchDock();
         }
+
+        if (Input.GetButtonDown("CONTROL_TOGGLE_INERTIAL_DAMPENERS"))
+        {
+            sd.ToggleInertialDampeners();
+        }
     }
 }

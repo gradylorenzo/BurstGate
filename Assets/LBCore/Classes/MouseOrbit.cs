@@ -116,7 +116,7 @@ public class MouseOrbit : MonoBehaviour
         }
         if (SSCameras.Length > 0)
         {
-            SSCameras[0].transform.position = transform.position / 100000000;
+            SSCameras[0].transform.position = transform.position / 1000;
         }
     }
 
