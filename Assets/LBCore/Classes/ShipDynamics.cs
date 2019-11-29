@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BGCore.GlobalVariables;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipDynamics : MonoBehaviour
@@ -161,6 +162,12 @@ public class ShipDynamics : MonoBehaviour
             if(rb.velocity.magnitude < .2f && currentInput.magnitude == 0)
             {
                 rb.velocity = Vector3.zero;
+            }
+
+            //Speed Limit
+            else if(rb.velocity.magnitude > Constants.SpeedLimit)
+            {
+                rb.velocity = rb.velocity.normalized * Constants.SpeedLimit;
             }
         }
     }
