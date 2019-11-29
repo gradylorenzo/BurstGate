@@ -183,8 +183,22 @@ public class ShipDynamics : MonoBehaviour
 
                 Vector3 oldPosition = rb.position;
                 ScaleSpaceManager.UpdateScaleSpaceOffset(oldPosition);
-                rb.position = Vector3.zero;
+                Vector3 newPosition = Vector3.zero;
+                newPosition.x = 0;
+                newPosition.y = oldPosition.y;
+                newPosition.z = 0;
+                rb.position = newPosition;
             }
+        }
+
+        if(rb.position.y > 500 || rb.position.y < 0)
+        {
+            Vector3 pos = rb.position;
+            Vector3 vel = rb.velocity;
+            pos.y = Mathf.Clamp(pos.y, 0, 500);
+            vel.y = 0;
+            rb.position = pos;
+            rb.velocity = vel;
         }
     }
     #endregion

@@ -21,8 +21,11 @@ public class ScaleSpaceObject : MonoBehaviour
         originalPosition = transform.position;
     }
 
-    public void UpdateOffset(Vector3 offset)
+    public void UpdateOffset(Vector2 offset)
     {
-        transform.position = originalPosition - (offset / (int)Scale);
+        Vector3 newOffset = Vector3.zero;
+        newOffset.x = offset.x;
+        newOffset.z = offset.y;
+        transform.position = originalPosition - (newOffset / (int)Scale);
     }
 }
