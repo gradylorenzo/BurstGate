@@ -166,6 +166,8 @@ public class ShipDynamics : MonoBehaviour
             {
                 rb.velocity = rb.velocity.normalized * Constants.SpeedLimit;
             }
+
+            CurrentVelocity = rb.velocity.magnitude;
         }
     }
 
@@ -208,7 +210,7 @@ public class ShipDynamics : MonoBehaviour
         }
         else
         {
-            Vector3 pos = AvailableDock.DockingPortOffset - DockingPortOffset;
+            Vector3 pos = AvailableDock.transform.position - DockingPortOffset;
             rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
             rb.velocity = Vector3.zero;
         }
@@ -233,7 +235,7 @@ public class ShipDynamics : MonoBehaviour
 
     private void Update()
     {
-        CurrentVelocity = rb.velocity.magnitude;
+        
         if (isNearStation)
         {
             if (AvailableDock != null)

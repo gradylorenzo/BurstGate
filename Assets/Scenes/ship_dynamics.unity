@@ -541,7 +541,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.6650944, g: 0.96161515, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -935,7 +935,7 @@ Light:
   m_Cookie: {fileID: 2800000, guid: 6170d75202ed8324c87d575fc7dd003f, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 567
@@ -1977,6 +1977,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 10a2f31adf6cfeb40894d724b0ca27d2, type: 2}
+    - target: {fileID: -1504981713932161579, guid: 06e61ebd56372c34ba27b878365ee115,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e61ebd56372c34ba27b878365ee115, type: 3}
 --- !u!1001 &1841725716
@@ -2404,7 +2409,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172668939549972}
-  m_Mesh: {fileID: 6461297695846733525, guid: 9425e99cbd57d7144950c0ba910879f2, type: 3}
+  m_Mesh: {fileID: -46666707746462065, guid: ae6f5385d5b7ee848a4d0935fb292c60, type: 3}
 --- !u!33 &4044710143037188781
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2412,7 +2417,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667447239304}
-  m_Mesh: {fileID: -6341592566148257887, guid: ed6cc96ce1363a14290d225801e4fc01, type: 3}
+  m_Mesh: {fileID: -2850033564958091454, guid: 2bace6f6ca766ea45b048c9424b3eb7b, type: 3}
 --- !u!4 &5006512735599775495
 Transform:
   m_ObjectHideFlags: 0
@@ -2533,7 +2538,7 @@ GameObject:
   - component: {fileID: 7718390322256762452}
   - component: {fileID: 8296172667447239305}
   m_Layer: 10
-  m_Name: planet_10_geo_SS1
+  m_Name: planet_100
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2565,7 +2570,7 @@ GameObject:
   - component: {fileID: 7718390323178637768}
   - component: {fileID: 8296172668939549973}
   m_Layer: 9
-  m_Name: planet_200_geo_SS0
+  m_Name: planet_200
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

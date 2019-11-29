@@ -18,7 +18,7 @@ public class PanelController : MonoBehaviour
 
     public void Update()
     {
-        velocityText.text = "Velocity: " + sd.CurrentVelocity.ToString("0.#") + " m/s";
+        velocityText.text = "Velocity: " + sd.CurrentVelocity.ToString("0.0") + " m/s";
         if (sd.UseDampeners)
         {
             inertialDampenerIndicator.color = Color.green;

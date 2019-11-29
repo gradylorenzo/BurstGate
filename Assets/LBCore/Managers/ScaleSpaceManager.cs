@@ -11,7 +11,6 @@ public static class ScaleSpaceManager
         private set
         {
             scaleSpaceOffset += value;
-            Debug.Log("New Offset = " + scaleSpaceOffset.ToString());
         }
     }
 
