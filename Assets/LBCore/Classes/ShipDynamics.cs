@@ -172,17 +172,18 @@ public class ShipDynamics : MonoBehaviour
     public bool doScaleSpaceUpdate = false;
     public float FloatingOriginUpdateThreshhold = 50.0f;
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (doScaleSpaceUpdate)
         {
-            if(rb.position.magnitude > FloatingOriginUpdateThreshhold)
+            if (rb.position.magnitude > FloatingOriginUpdateThreshhold)
             {
                 Vector3 oldVelocity = rb.velocity;
+                rb.velocity = oldVelocity;
+
                 Vector3 oldPosition = rb.position;
                 ScaleSpaceManager.UpdateScaleSpaceOffset(oldPosition);
                 rb.position = Vector3.zero;
-                rb.velocity = oldVelocity;
             }
         }
     }

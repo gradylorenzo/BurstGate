@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Attributes:
-    Thrust: {x: 10, y: 10, z: 10}
+    Thrust: {x: 10, y: 300, z: 500}
     Torque: 30
     InertialDampenerMultiplier: 1.25
     DockingPortPosition: {x: 0, y: 0, z: 0}
