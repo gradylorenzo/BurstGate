@@ -29,6 +29,30 @@ public class ShipDynamics : MonoBehaviour
     }
     #endregion
 
+    #region Public Methods
+    public void AllowScaleSpaceUpdate()
+    {
+
+    }
+
+    public void ToggleInertialDampeners()
+    {
+        useDampeners = !useDampeners;
+    }
+    public void ApplyThrust(Vector3 direction)
+    {
+        currentInput = direction;
+        ProcessInput();
+    }
+    public void ApplyTorque(float direction)
+    {
+        if (!isDocked)
+        {
+            rb.AddRelativeTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
+        }
+    }
+    #endregion
+
     #region Docking
     public DockingPort AvailableDock { get; private set; }
     public Vector3 DockingPortOffset;
@@ -134,26 +158,32 @@ public class ShipDynamics : MonoBehaviour
         {
             force = transform.TransformDirection(force);
             rb.AddForce(force);
+
+            if(rb.velocity.magnitude < .2f && currentInput.magnitude == 0)
+            {
+                rb.velocity = Vector3.zero;
+            }
         }
     }
 
     #endregion
 
-    #region Public methods
-    public void ToggleInertialDampeners()
+    #region ScaleSpaceUpdate
+    public bool doScaleSpaceUpdate = false;
+    public float FloatingOriginUpdateThreshhold = 50.0f;
+
+    private void LateUpdate()
     {
-        useDampeners = !useDampeners;
-    }
-    public void ApplyThrust(Vector3 direction)
-    {
-        currentInput = direction;
-        ProcessInput();
-    }
-    public void ApplyTorque (float direction)
-    {
-        if (!isDocked)
+        if (doScaleSpaceUpdate)
         {
-            rb.AddRelativeTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
+            if(rb.position.magnitude > FloatingOriginUpdateThreshhold)
+            {
+                Vector3 oldVelocity = rb.velocity;
+                Vector3 oldPosition = rb.position;
+                ScaleSpaceManager.UpdateScaleSpaceOffset(oldPosition);
+                rb.position = Vector3.zero;
+                rb.velocity = oldVelocity;
+            }
         }
     }
     #endregion

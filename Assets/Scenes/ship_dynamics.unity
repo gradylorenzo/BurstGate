@@ -386,7 +386,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397998521
 GameObject:
@@ -566,13 +566,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454739793}
-  m_LocalRotation: {x: -0.4214369, y: -0.06771738, z: 0.031577133, w: -0.90377444}
+  m_LocalRotation: {x: -0.08442815, y: 0.6372439, z: -0.048813224, w: -0.7644667}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50.000004, y: -351.43, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.028001, y: -439.814, z: -1.9250001}
 --- !u!1 &837964434
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +656,8 @@ MonoBehaviour:
   rb: {fileID: 837964437}
   DockingPortOffset: {x: 0, y: 0, z: 0}
   dockAvailable: 0
+  doScaleSpaceUpdate: 1
+  FloatingOriginUpdateThreshhold: 1000
 --- !u!1 &845621247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1194,7 @@ MonoBehaviour:
   target: {fileID: 837964436}
   defaultDistance: 50
   zoomSpeed: 0.1
-  panSpeed: 0.5
+  panSpeed: Infinity
   xSpeed: 10
   ySpeed: 10
   zSpeed: 10
@@ -1679,7 +1681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &2003451235
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1700,17 +1702,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003451234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0.50000006}
+  m_LocalScale: {x: 0.0002, y: 0.00019999997, z: 0.00019999997}
   m_Children:
   - {fileID: 397998525}
   - {fileID: 1637761880}
   - {fileID: 1984371204}
   - {fileID: 845621248}
   - {fileID: 217456114}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 5006512735599775495}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4044710141544363313
 MeshFilter:
@@ -1727,7 +1729,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296172667447239304}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -6341592566148257887, guid: ed6cc96ce1363a14290d225801e4fc01, type: 3}
 --- !u!4 &5006512735599775495
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,7 +1740,8 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: -2500, z: 0}
   m_LocalScale: {x: 5000, y: 5000, z: 5000}
-  m_Children: []
+  m_Children:
+  - {fileID: 2003451236}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1754,7 +1757,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &7718390322256762452
 MeshRenderer:
@@ -1845,13 +1848,27 @@ GameObject:
   - component: {fileID: 5006512736556388507}
   - component: {fileID: 4044710143037188781}
   - component: {fileID: 7718390322256762452}
+  - component: {fileID: 8296172667447239305}
   m_Layer: 10
-  m_Name: planet_200_geo_SS1
+  m_Name: planet_10_geo_SS1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8296172667447239305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172667447239304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c55a155d13073419d188fe991e8615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scale: 1000
 --- !u!1 &8296172668939549972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,6 +1880,7 @@ GameObject:
   - component: {fileID: 5006512735599775495}
   - component: {fileID: 4044710141544363313}
   - component: {fileID: 7718390323178637768}
+  - component: {fileID: 8296172668939549973}
   m_Layer: 9
   m_Name: planet_200_geo_SS0
   m_TagString: Untagged
@@ -1870,3 +1888,16 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8296172668939549973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172668939549972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c55a155d13073419d188fe991e8615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Scale: 1
