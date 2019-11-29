@@ -92,9 +92,8 @@ public class ShipDynamics : MonoBehaviour
     }
     private void Dock()
     {
-        transform.position = AvailableDock.DockingPortOffset - DockingPortOffset;
-        rb.velocity = Vector3.zero;
         isDocked = true;
+        rb.velocity = Vector3.zero;
     }
     private void Undock()
     {
@@ -191,14 +190,22 @@ public class ShipDynamics : MonoBehaviour
             }
         }
 
-        if(rb.position.y > 500 || rb.position.y < 0)
+        if (!isDocked)
         {
-            Vector3 pos = rb.position;
-            Vector3 vel = rb.velocity;
-            pos.y = Mathf.Clamp(pos.y, 0, 500);
-            vel.y = 0;
-            rb.position = pos;
-            rb.velocity = vel;
+            if (rb.position.y > 500 || rb.position.y < 0)
+            {
+                Vector3 pos = rb.position;
+                Vector3 vel = rb.velocity;
+                pos.y = Mathf.Clamp(pos.y, 0, 500);
+                vel.y = 0;
+                rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
+                rb.velocity = vel;
+            }
+        }
+        else
+        {
+            Vector3 pos = AvailableDock.DockingPortOffset - DockingPortOffset;
+            rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
         }
     }
     #endregion
