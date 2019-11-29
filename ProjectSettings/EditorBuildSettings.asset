@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ship_dynamics.unity
+    guid: ed8c118db31ed2d4699f2607818451a0
   m_configObjects: {}

@@ -22,12 +22,14 @@ public class ShipDynamics : MonoBehaviour
     [SerializeField]
     public ShipDynamicsAttributes Attributes;
     public Rigidbody rb;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         AvailableDock = null;
     }
+
+    public float CurrentVelocity = 0;
+    
     #endregion
 
     #region Public Methods
@@ -35,7 +37,6 @@ public class ShipDynamics : MonoBehaviour
     {
 
     }
-
     public void ToggleInertialDampeners()
     {
         useDampeners = !useDampeners;
@@ -55,11 +56,10 @@ public class ShipDynamics : MonoBehaviour
     #endregion
 
     #region Docking
-    public DockingPort AvailableDock { get; private set; }
-    public Vector3 DockingPortOffset;
-    public bool dockAvailable = false;
-    public bool isDocked { get; private set; }
-
+    private DockingPort AvailableDock;
+    public Vector3 DockingPortOffset { get; private set; }
+    private bool isDocked = false;
+    private bool isNearStation = false;
     public void SetDockingPortOffset(Vector3 offset)
     {
         DockingPortOffset = offset;
@@ -67,14 +67,6 @@ public class ShipDynamics : MonoBehaviour
     public void UpdateAvailableDock(DockingPort dock)
     {
         AvailableDock = dock;
-        if (dock != null)
-        {
-            dockAvailable = true;
-        }
-        else
-        {
-            dockAvailable = false;
-        }
     }
     public void SwitchDock()
     {
@@ -100,10 +92,15 @@ public class ShipDynamics : MonoBehaviour
     {
         isDocked = false;
     }
-    private void OnDrawGizmos()
+
+    public enum DockingStates
     {
-        Gizmos.DrawSphere(rb.velocity + transform.position, 1);
+        None,
+        OutOfRange,
+        WithinRange,
+        Docked
     }
+    public DockingStates DockingState;
     #endregion
 
     #region Thrust Control and Inertial Dampeners
@@ -159,7 +156,7 @@ public class ShipDynamics : MonoBehaviour
             force = transform.TransformDirection(force);
             rb.AddForce(force);
 
-            if(rb.velocity.magnitude < .2f && currentInput.magnitude == 0)
+            if(rb.velocity.magnitude < 1 && currentInput.magnitude == 0)
             {
                 rb.velocity = Vector3.zero;
             }
@@ -213,6 +210,51 @@ public class ShipDynamics : MonoBehaviour
         {
             Vector3 pos = AvailableDock.DockingPortOffset - DockingPortOffset;
             rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
+            rb.velocity = Vector3.zero;
+        }
+    }
+
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("StationLimits"))
+        {
+            isNearStation = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("StationLimits"))
+        {
+            isNearStation = false;
+        }
+    }
+
+    private void Update()
+    {
+        CurrentVelocity = rb.velocity.magnitude;
+        if (isNearStation)
+        {
+            if (AvailableDock != null)
+            {
+                if (isDocked)
+                {
+                    DockingState = DockingStates.Docked;
+                }
+                else
+                {
+                    DockingState = DockingStates.WithinRange;
+                }
+            }
+            else
+            {
+                DockingState = DockingStates.OutOfRange;
+            }
+        }
+        else
+        {
+            DockingState = DockingStates.None;
         }
     }
     #endregion

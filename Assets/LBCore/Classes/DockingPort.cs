@@ -72,15 +72,9 @@ public class DockingPort : MonoBehaviour
     {
         if (PortType == DockingPortTypes.playerShip)
         {
-            if (sd.AvailableDock != null)
+            if (other.gameObject.tag == "DockingPort")
             {
-                if (other.gameObject.tag == "DockingPort")
-                {
-                    if (other.GetComponent<DockingPort>() == sd.AvailableDock)
-                    {
-                        sd.UpdateAvailableDock(null);
-                    }
-                }
+                sd.UpdateAvailableDock(null);
             }
         }
     }
