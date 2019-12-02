@@ -6,6 +6,7 @@ using UnityEngine;
 public class TurretController : MonoBehaviour
 {
     public Transform Target;
+
     public Transform TurretBase;
     public Transform TurretBarrel;
 
@@ -17,6 +18,7 @@ public class TurretController : MonoBehaviour
 
     public TurretAttributes Attributes;
 
+    public bool useSmoothMovement = true;
     private bool isAligned
     {
         get
@@ -38,6 +40,20 @@ public class TurretController : MonoBehaviour
             }
         }
     }
+    private Vector3 targetPos
+    {
+        get
+        {
+            if (Target != null)
+            {
+                return Target.transform.position;
+            }
+            else
+            {
+                return new Vector3(0, 0, 1);
+            }
+        }
+    }
     private float MinBarrelAngle = -180;
     private float MaxBarrelAngle = 0;
 
@@ -50,11 +66,6 @@ public class TurretController : MonoBehaviour
                 doBaseRotation();
                 doBarrelRotation();
             }
-            else
-            {
-                doBaseDefaultRotation();
-                doBarrelDefaultRotation();
-            }
         }
         else
         {
@@ -64,54 +75,56 @@ public class TurretController : MonoBehaviour
 
     private void doBaseRotation()
     {
-        var directionToTarget = (Target.position - transform.position).normalized;
+        var directionToTarget = (targetPos - transform.position).normalized;
         var worldAxis = transform.up;
         var flattenedDirection = Vector3.ProjectOnPlane(directionToTarget, worldAxis);
 
-        //var rotation = Quaternion.RotateTowards(TurretBase.rotation, Quaternion.LookRotation(flattenedDirection, worldAxis), Attributes.LookSpeed);
-        var rotation = Quaternion.LookRotation(flattenedDirection, worldAxis);
-        TurretBase.rotation = rotation;
-    }
-
-    private void doBaseDefaultRotation()
-    {
-        var directionToTarget = (transform.position + new Vector3(0, 0, 1) - transform.position).normalized;
-        var worldAxis = transform.up;
-        var flattenedDirection = Vector3.ProjectOnPlane(directionToTarget, worldAxis);
-
-        var rotation = Quaternion.RotateTowards(TurretBase.rotation, Quaternion.LookRotation(flattenedDirection, worldAxis), Attributes.LookSpeed);
-        //var rotation = Quaternion.LookRotation(flattenedDirection, worldAxis);
+        Quaternion rotation;
+        if (useSmoothMovement)
+        {
+            rotation = Quaternion.RotateTowards(TurretBase.rotation, Quaternion.LookRotation(flattenedDirection, worldAxis), Attributes.LookSpeed);
+        }
+        else
+        {
+            rotation = Quaternion.LookRotation(flattenedDirection, worldAxis);
+        }
         TurretBase.rotation = rotation;
     }
 
     private void doBarrelRotation()
     {
-        var directionToTarget = (Target.position - TurretBarrel.position).normalized;
+        var directionToTarget = (targetPos - TurretBarrel.position).normalized;
         var axis = TurretBase.right;
         var flattenedDirection = Vector3.ProjectOnPlane(directionToTarget, axis);
         var signedAngle = Vector3.SignedAngle(TurretBase.forward, flattenedDirection, axis);
         signedAngle = Mathf.Clamp(signedAngle, MinBarrelAngle, MaxBarrelAngle);
 
-        /*var rotation = Quaternion.RotateTowards(TurretBarrel.rotation, Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
-            TurretBarrel.up), Attributes.LookSpeed);*/
-        var rotation = Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
+        Quaternion rotation;
+
+        if (useSmoothMovement)
+        {
+            rotation = Quaternion.RotateTowards(TurretBarrel.rotation, Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
+                TurretBarrel.up), Attributes.LookSpeed);
+        }
+        else
+        {
+            rotation = Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
             TurretBarrel.up);
+        }
         TurretBarrel.rotation = rotation;
     }
 
-    private void doBarrelDefaultRotation()
+    private void OnDrawGizmos()
     {
-        var directionToTarget = (TurretBarrel.position + new Vector3(0, 0, 1) - TurretBarrel.position).normalized;
-        var axis = TurretBase.right;
-        var flattenedDirection = Vector3.ProjectOnPlane(directionToTarget, axis);
-        var signedAngle = Vector3.SignedAngle(TurretBase.forward, flattenedDirection, axis);
-        signedAngle = Mathf.Clamp(signedAngle, MinBarrelAngle, MaxBarrelAngle);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(new Ray(TurretBarrel.position, TurretBarrel.forward * 2));
+        Gizmos.DrawRay(new Ray(TurretBase.position, TurretBase.forward * 2));
 
-        /*var rotation = Quaternion.RotateTowards(TurretBarrel.rotation, Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
-            TurretBarrel.up), Attributes.LookSpeed);*/
-        var rotation = Quaternion.LookRotation(Quaternion.AngleAxis(signedAngle, axis) * TurretBase.forward,
-            TurretBarrel.up)
-        ;
-        TurretBarrel.rotation = rotation;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(new Ray(TurretBarrel.position, TurretBarrel.right * 2));
+        Gizmos.DrawRay(new Ray(TurretBase.position, TurretBase.right * 2));
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(new Ray(TurretBarrel.position, TurretBarrel.up * 5));
     }
 }

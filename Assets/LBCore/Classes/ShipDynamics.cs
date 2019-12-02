@@ -50,7 +50,12 @@ public class ShipDynamics : MonoBehaviour
     {
         if (!isDocked)
         {
-            rb.AddRelativeTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
+            //rb.AddTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
+
+            Vector3 rotation = rb.rotation.eulerAngles;
+
+            rotation.y += (direction * Mathf.Abs(Attributes.Torque));
+            rb.MoveRotation(Quaternion.Euler(rotation));
         }
     }
     #endregion
