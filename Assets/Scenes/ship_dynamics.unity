@@ -2606,41 +2606,51 @@ PrefabInstance:
     - target: {fileID: 5151460441509892666, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
       propertyPath: Attributes.Torque
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5151460441509892670, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
       propertyPath: m_Name
       value: ShipTest
       objectReference: {fileID: 0}
-    - target: {fileID: 1164784533, guid: 3b165c0141e1028409b0cf5bb6832775, type: 3}
-      propertyPath: Target
-      value: 
+    - target: {fileID: 1164784534, guid: 3b165c0141e1028409b0cf5bb6832775, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6291387388407640713, guid: 3b165c0141e1028409b0cf5bb6832775,
+    - target: {fileID: 5151460440585642877, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
-      propertyPath: Target
-      value: 
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6291387388290350267, guid: 3b165c0141e1028409b0cf5bb6832775,
+    - target: {fileID: 5151460441509892665, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
-      propertyPath: Target
-      value: 
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
-    - target: {fileID: 6291387389527369627, guid: 3b165c0141e1028409b0cf5bb6832775,
+    - target: {fileID: 6291387388290350264, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
-      propertyPath: Target
-      value: 
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6291387388766392247, guid: 3b165c0141e1028409b0cf5bb6832775,
+    - target: {fileID: 6291387388407640714, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
-      propertyPath: Target
-      value: 
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6291387388731683764, guid: 3b165c0141e1028409b0cf5bb6832775,
+    - target: {fileID: 6291387388731683767, guid: 3b165c0141e1028409b0cf5bb6832775,
         type: 3}
-      propertyPath: Target
-      value: 
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291387388766392244, guid: 3b165c0141e1028409b0cf5bb6832775,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291387389527369624, guid: 3b165c0141e1028409b0cf5bb6832775,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b165c0141e1028409b0cf5bb6832775, type: 3}

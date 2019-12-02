@@ -50,12 +50,8 @@ public class ShipDynamics : MonoBehaviour
     {
         if (!isDocked)
         {
-            //rb.AddTorque(Vector3.up * (direction * Mathf.Abs(Attributes.Torque))); //Mathf.Abs prevents accidental negative values inverting control direction
-
-            Vector3 rotation = rb.rotation.eulerAngles;
-
-            rotation.y += (direction * Mathf.Abs(Attributes.Torque));
-            rb.MoveRotation(Quaternion.Euler(rotation));
+            Vector3 dir = Vector3.up * (direction * Mathf.Abs(Attributes.Torque));
+            rb.AddTorque(dir);
         }
     }
     #endregion
@@ -221,7 +217,6 @@ public class ShipDynamics : MonoBehaviour
         }
     }
 
-    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("StationLimits"))
