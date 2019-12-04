@@ -40,7 +40,7 @@ public class DockingPort : MonoBehaviour
             }
             else
             {
-                sd.SetDockingPortOffset(DockingPortOffset);
+                sd.SetDockingPort(transform.localPosition + DockingPortOffset);
             }
         }
     }
@@ -77,11 +77,6 @@ public class DockingPort : MonoBehaviour
                 sd.UpdateAvailableDock(null);
             }
         }
-    }
-
-    public void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawSphere(transform.position + DockingPortOffset, 0.5f);
     }
     #endregion
 }

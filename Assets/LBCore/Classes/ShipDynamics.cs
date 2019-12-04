@@ -58,12 +58,12 @@ public class ShipDynamics : MonoBehaviour
 
     #region Docking
     private DockingPort AvailableDock;
-    public Vector3 DockingPortOffset { get; private set; }
+    public Vector3 DockingPortPosition;
     private bool isDocked = false;
     private bool isNearStation = false;
-    public void SetDockingPortOffset(Vector3 offset)
+    public void SetDockingPort(Vector3 port)
     {
-        DockingPortOffset = offset;
+        DockingPortPosition = port;
     }
     public void UpdateAvailableDock(DockingPort dock)
     {
@@ -211,10 +211,22 @@ public class ShipDynamics : MonoBehaviour
         }
         else
         {
-            Vector3 pos = AvailableDock.transform.position - DockingPortOffset;
+            Vector3 pos = AvailableDock.transform.position - DockingPortPosition;
             rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
             rb.velocity = Vector3.zero;
         }
+
+        CorrectRotationalDrift();
+    }
+
+    private void CorrectRotationalDrift()
+    {
+        Vector3 rotation = rb.rotation.eulerAngles;
+
+        rotation.x = 0;
+        rotation.z = 0;
+
+        rb.rotation = Quaternion.Euler(rotation);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -258,6 +270,11 @@ public class ShipDynamics : MonoBehaviour
         {
             DockingState = DockingStates.None;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + DockingPortPosition, 0.5f);
     }
     #endregion
 }
