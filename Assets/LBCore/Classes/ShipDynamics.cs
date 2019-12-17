@@ -116,6 +116,7 @@ public class ShipDynamics : MonoBehaviour
 
     private Vector3 currentInput;
     private Vector3 finalThrust;
+    public Vector3 currentForce;
 
     private void ProcessInput()
     {
@@ -152,14 +153,20 @@ public class ShipDynamics : MonoBehaviour
     }
     private void DoFinalForce(Vector3 force)
     {
+        
         if (!isDocked)
         {
-            force = transform.TransformDirection(force);
-            rb.AddForce(force);
+            if (force.magnitude > 0.1f)
+            {
+                force = transform.TransformDirection(force);
+                currentForce = force;
+                rb.AddForce(force);
+            }
 
             if(rb.velocity.magnitude < 1 && currentInput.magnitude == 0)
             {
                 rb.velocity = Vector3.zero;
+                currentForce = Vector3.zero;
             }
 
             //Speed Limit
@@ -275,6 +282,8 @@ public class ShipDynamics : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position + DockingPortPosition, 0.5f);
+
+        Gizmos.DrawLine(transform.position, transform.position + currentForce);
     }
     #endregion
 }

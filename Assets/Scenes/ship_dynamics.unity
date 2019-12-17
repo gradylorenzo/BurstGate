@@ -338,16 +338,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 7.1266
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
-        type: 3}
-      propertyPath: m_Name
-      value: docking_port
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 06e61ebd56372c34ba27b878365ee115,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -357,6 +347,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
+        type: 3}
+      propertyPath: m_Name
+      value: docking_port
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e61ebd56372c34ba27b878365ee115, type: 3}
@@ -744,7 +744,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1387,12 +1387,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!4 &1221288914 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 645810929822609788, guid: 6818bfb97dea95d48badf4638e6074b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1268817786292603459}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1243717885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1605,8 +1599,8 @@ MonoBehaviour:
   zSpeed: 20
   yMinLimit: -20
   yMaxLimit: 80
-  distanceMin: 150
-  distanceMax: 300
+  distanceMin: 200
+  distanceMax: 800
   firstMousePosition: {x: 0, y: 0}
   unlockThreshold: 5
   spinUnlocked: 0
@@ -1644,7 +1638,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 2000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2213,26 +2207,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1666152212}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1758400307 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1717324539742058144, guid: 6818bfb97dea95d48badf4638e6074b7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1268817786292603459}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &1758400311
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758400307}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 5489979610240263223, guid: 69ffc7d0e18c9e542b070feee74536a0, type: 3}
 --- !u!1001 &1841725716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2310,16 +2284,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 7.1266
       objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
-        type: 3}
-      propertyPath: m_Name
-      value: docking_port
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 06e61ebd56372c34ba27b878365ee115,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2329,6 +2293,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
+        type: 3}
+      propertyPath: m_Name
+      value: docking_port
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 06e61ebd56372c34ba27b878365ee115,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06e61ebd56372c34ba27b878365ee115, type: 3}
@@ -2559,11 +2533,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 645810927825649724, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: m_Name
-      value: Fenrir
-      objectReference: {fileID: 0}
     - target: {fileID: 645810927825649722, guid: 6818bfb97dea95d48badf4638e6074b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2619,41 +2588,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 645810927825649720, guid: 6818bfb97dea95d48badf4638e6074b7,
+    - target: {fileID: 645810927825649724, guid: 6818bfb97dea95d48badf4638e6074b7,
         type: 3}
-      propertyPath: Attributes.Torque
-      value: 1000
+      propertyPath: m_Name
+      value: Fenrir
       objectReference: {fileID: 0}
-    - target: {fileID: 645810927825649720, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: DockingPort
-      value: 
-      objectReference: {fileID: 1221288914}
-    - target: {fileID: 645810929822609786, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: DockingPortOffset.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 192526234733043759, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 673656886}
-    - target: {fileID: 2417993509265212595, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1717324539742058144, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 887027639304663579, guid: 6818bfb97dea95d48badf4638e6074b7,
-        type: 3}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 673656886}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6818bfb97dea95d48badf4638e6074b7, type: 3}
 --- !u!33 &4044710141544363313
