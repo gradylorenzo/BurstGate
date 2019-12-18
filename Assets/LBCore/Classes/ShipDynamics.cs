@@ -162,6 +162,10 @@ public class ShipDynamics : MonoBehaviour
                 currentForce = force;
                 rb.AddForce(force);
             }
+            else
+            {
+                currentForce = Vector3.zero;
+            }
 
             if(rb.velocity.magnitude < 1 && currentInput.magnitude == 0)
             {
