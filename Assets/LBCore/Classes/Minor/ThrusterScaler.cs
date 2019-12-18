@@ -18,7 +18,7 @@ public class ThrusterScaler : MonoBehaviour
         thrustDirectionPosition = playerShip.currentForce;
         thrustDirection = Quaternion.LookRotation(thrustDirectionPosition - transform.position);
         float thrustAngle = Vector3.Angle(transform.forward, thrustDirectionPosition);
-        zScale = Mathf.Lerp(zScale, defaultScale + (scalingCurve.Evaluate(thrustAngle / 180) * scaleMultiplier), 0.2f);
+        zScale = Mathf.Lerp(zScale, defaultScale + (scalingCurve.Evaluate(thrustAngle / 180) * scaleMultiplier), 0.3f);
         Vector3 scale = new Vector3(transform.localScale.x, transform.localScale.y, zScale);
 
         transform.localScale = scale;

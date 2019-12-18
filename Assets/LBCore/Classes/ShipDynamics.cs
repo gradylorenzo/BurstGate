@@ -156,7 +156,7 @@ public class ShipDynamics : MonoBehaviour
         
         if (!isDocked)
         {
-            if (force.magnitude > 0.1f)
+            if (force.magnitude > 0.01f)
             {
                 force = transform.TransformDirection(force);
                 currentForce = force;
