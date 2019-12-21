@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class TurretController : MonoBehaviour
 {
+    #region fields
     public Transform Target;
 
     public Transform TurretBase;
@@ -14,6 +16,7 @@ public class TurretController : MonoBehaviour
     public struct TurretAttributes
     {
         public float LookSpeed;
+        public float FireInterval;
     }
 
     public TurretAttributes Attributes;
@@ -40,6 +43,26 @@ public class TurretController : MonoBehaviour
             }
         }
     }
+
+    private Animator anim;
+    #endregion
+
+    #region MB Methods
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        InitializeEffects();
+    }
+
+    private void Update()
+    {
+        DoTurretRotation();
+
+        DoFireLoop();
+    }
+    #endregion
+
+    #region Rotation
     private Vector3 targetPos
     {
         get
@@ -57,9 +80,12 @@ public class TurretController : MonoBehaviour
     private float MinBarrelAngle = -180;
     private float MaxBarrelAngle = 0;
 
-    public void Update()
+
+    
+
+    private void DoTurretRotation()
     {
-        if(TurretBase != null && TurretBarrel != null)
+        if (TurretBase != null && TurretBarrel != null)
         {
             if (Target != null)
             {
@@ -127,4 +153,61 @@ public class TurretController : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(new Ray(TurretBarrel.position, TurretBarrel.up * 5));
     }
+    #endregion
+
+    #region Firing
+    //Please note, this is only a visual effect. No actual damage messages are sent from here.
+
+    public LineRenderer[] effects;
+    private Vector3[] effectInitialPositions;
+    private bool isActive = false;
+    private float nextFireTime;
+
+    private void InitializeEffects()
+    {
+        if(effects.Length > 0)
+        {
+            effectInitialPositions = new Vector3[effects.Length];
+            for(int i = 0; i < effects.Length; i++)
+            {
+                effectInitialPositions[i] = effects[i].GetPosition(0);
+            }
+        }
+    }
+
+    public void ToggleFiring()
+    {
+        isActive = !isActive;
+    }
+
+    private void DoFireLoop()
+    {
+        for(int i = 0; i < effects.Length; i++)
+        {
+            float length = Vector3.Distance(effects[i].transform.position, targetPos);
+            effects[i].SetPosition(0, effectInitialPositions[i]);
+            effects[i].SetPosition(1, Vector3.forward * length);
+        }
+
+        if (isActive)
+        {
+            if(Time.time > nextFireTime)
+            {
+                StartCoroutine("Fire");
+                print("FIRED  |  " + Time.time.ToString("##.#"));
+                nextFireTime = Time.time + Attributes.FireInterval;
+            }
+        }
+    }
+
+    private IEnumerator Fire()
+    {
+        float d = UnityEngine.Random.Range(0, 0.25f);
+
+        yield return new WaitForSeconds(d);
+        anim.StopPlayback();
+        anim.SetTrigger("AnimateFiring");
+    }
+
+    #endregion
 }

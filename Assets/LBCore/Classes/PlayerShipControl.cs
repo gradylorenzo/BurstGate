@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LBCore;
 
 [RequireComponent(typeof(ShipDynamics))]
 public class PlayerShipControl : MonoBehaviour
@@ -10,34 +11,36 @@ public class PlayerShipControl : MonoBehaviour
     private void Start()
     {
         sd = GetComponent<ShipDynamics>();
+        GameManagerCore.Events.EUpdatePlayerShip(sd);
     }
 
     private void FixedUpdate()
     {
-        float x = Input.GetAxis("CONTROL_X");
-        float y = Input.GetAxis("CONTROL_Y");
-        float z = Input.GetAxis("CONTROL_Z");
-
-        float t = 0;
-        if (!Input.GetKey(KeyCode.Mouse0))
+        if (GameManagerCore.isControllingShip)
         {
-            t = Input.GetAxis("CONTROL_TORQUE");
-        }
+            float x = Input.GetAxis("CONTROL_X");
+            float y = Input.GetAxis("CONTROL_Y");
+            float z = Input.GetAxis("CONTROL_Z");
+            float t = Input.GetAxis("CONTROL_TORQUE");
 
-        sd.ApplyThrust(new Vector3(x, y, z));
-        sd.ApplyTorque(t);
+            sd.ApplyThrust(new Vector3(x, y, z));
+            sd.ApplyTorque(t);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("CONTROL_DOCK"))
+        if (GameManagerCore.isControllingShip)
         {
-            sd.SwitchDock();
-        }
+            if (Input.GetButtonDown("CONTROL_DOCK"))
+            {
+                sd.SwitchDock();
+            }
 
-        if (Input.GetButtonDown("CONTROL_TOGGLE_INERTIAL_DAMPENERS"))
-        {
-            sd.ToggleInertialDampeners();
+            if (Input.GetButtonDown("CONTROL_TOGGLE_INERTIAL_DAMPENERS"))
+            {
+                sd.ToggleInertialDampeners();
+            }
         }
     }
 }

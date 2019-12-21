@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using LBCore;
+using System;
 
 public class PanelController : MonoBehaviour
 {
@@ -15,6 +17,16 @@ public class PanelController : MonoBehaviour
     public Image dockingIndicator;
     private float wantedDockingIndicatorPosition;
     private float currentDockingIndicatorPosition;
+
+    public void Awake()
+    {
+        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+    }
+
+    private void EUpdatePlayerShip(ShipDynamics sd)
+    {
+        this.sd = sd;
+    }
 
     public void Update()
     {

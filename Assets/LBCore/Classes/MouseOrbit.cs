@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using LBCore;
+using System;
 
 [AddComponentMenu("Camera-Control/Mouse Orbit with Zoom")]
 public class MouseOrbit : MonoBehaviour
 {
-
     public Transform target;
     public float defaultDistance = 5.0f;
     public float zoomSpeed = 0.1f;
@@ -32,6 +33,16 @@ public class MouseOrbit : MonoBehaviour
     float y = 0.0f;
 
     // Use this for initialization
+    private void Awake()
+    {
+        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+    }
+
+    private void EUpdatePlayerShip(ShipDynamics sd)
+    {
+        target = sd.gameObject.transform;
+    }
+
     void Start()
     {
         Vector3 angles = transform.eulerAngles;
@@ -47,6 +58,7 @@ public class MouseOrbit : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             firstMousePosition = Input.mousePosition;
+            GameManagerCore.isMovingCamera = true;
         }
 
         if (Input.GetKey(KeyCode.Mouse0))
@@ -63,6 +75,7 @@ public class MouseOrbit : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             spinUnlocked = false;
+            GameManagerCore.isMovingCamera = false;
         }
 
 
