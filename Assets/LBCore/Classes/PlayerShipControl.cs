@@ -17,7 +17,12 @@ public class PlayerShipControl : MonoBehaviour
         float x = Input.GetAxis("CONTROL_X");
         float y = Input.GetAxis("CONTROL_Y");
         float z = Input.GetAxis("CONTROL_Z");
-        float t = Input.GetAxis("CONTROL_TORQUE");
+
+        float t = 0;
+        if (!Input.GetKey(KeyCode.Mouse0))
+        {
+            t = Input.GetAxis("CONTROL_TORQUE");
+        }
 
         sd.ApplyThrust(new Vector3(x, y, z));
         sd.ApplyTorque(t);
