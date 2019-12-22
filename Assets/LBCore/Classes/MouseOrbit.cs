@@ -58,7 +58,6 @@ public class MouseOrbit : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             firstMousePosition = Input.mousePosition;
-            GameManagerCore.isMovingCamera = true;
         }
 
         if (Input.GetKey(KeyCode.Mouse0))
@@ -75,7 +74,6 @@ public class MouseOrbit : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             spinUnlocked = false;
-            GameManagerCore.isMovingCamera = false;
         }
 
 

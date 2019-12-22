@@ -55,6 +55,11 @@ public class ShipDynamics : MonoBehaviour
             rb.AddTorque(dir);
         }
     }
+
+    public void WarpToPoint(Vector2 destination)
+    {
+        rb.position = destination - ScaleSpaceManager.ScaleSpaceOffset;
+    }
     #endregion
 
     #region Docking

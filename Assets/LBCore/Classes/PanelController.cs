@@ -15,12 +15,29 @@ public class PanelController : MonoBehaviour
 
     public RectTransform dockingPanel;
     public Image dockingIndicator;
+    public Image pendingIndicator;
     private float wantedDockingIndicatorPosition;
     private float currentDockingIndicatorPosition;
 
     public void Awake()
     {
         GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+        GameManagerCore.Events.EUpdatePendingTarget += EUpdatePendingTarget;
+        GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
+    }
+
+    private void EUpdatePendingTarget(Transform t, float progress, float max)
+    {
+        if(progress > 0)
+        {
+            pendingIndicator.rectTransform.position = Input.mousePosition;
+            pendingIndicator.fillAmount = 1 - progress / max;
+        }
+    }
+
+    private void EUpdateSelectedTarget(Transform t)
+    {
+        pendingIndicator.fillAmount = 0;
     }
 
     private void EUpdatePlayerShip(ShipDynamics sd)

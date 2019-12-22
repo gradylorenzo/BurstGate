@@ -18,23 +18,25 @@ public class PlayerShipControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManagerCore.isControllingShip)
+        float x = 0;
+        float y = 0;
+        float z = 0;
+        float t = 0;
+
+        if (!GameManagerCore.isUsingInterface)
         {
-            float x = Input.GetAxis("CONTROL_X");
-            float y = Input.GetAxis("CONTROL_Y");
-            float z = Input.GetAxis("CONTROL_Z");
-            float t = Input.GetAxis("CONTROL_TORQUE");
-
-            sd.ApplyThrust(new Vector3(x, y, z));
-            sd.ApplyTorque(t);
-
-            
+            x = Input.GetAxis("CONTROL_X");
+            y = Input.GetAxis("CONTROL_Y");
+            z = Input.GetAxis("CONTROL_Z");
+            t = Input.GetAxis("CONTROL_TORQUE");
         }
+        sd.ApplyThrust(new Vector3(x, y, z));
+        sd.ApplyTorque(t);
     }
 
     private void Update()
     {
-        if (GameManagerCore.isControllingShip)
+        if (!GameManagerCore.isUsingInterface)
         {
             if (Input.GetButtonDown("CONTROL_DOCK"))
             {

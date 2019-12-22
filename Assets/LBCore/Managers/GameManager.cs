@@ -16,13 +16,6 @@ namespace LBCore
     {
         #region Mouse control
         //Manager section controls how the mouse is used.
-        private static bool _isMovingCamera;
-        public static bool isMovingCamera
-        {
-            get { return _isMovingCamera; }
-            set { _isMovingCamera = value; }
-        }
-
         private static bool _isUsingInterface;
         public static bool isUsingInterface
         {
@@ -30,20 +23,6 @@ namespace LBCore
             set { _isUsingInterface = value; }
         }
 
-        public static bool isControllingShip
-        {
-            get
-            {
-                if (_isMovingCamera || _isUsingInterface)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
         #endregion
 
         #region Events
@@ -51,6 +30,12 @@ namespace LBCore
         {
             public delegate void e_UpdatePlayerShip(ShipDynamics sd);
             public static e_UpdatePlayerShip EUpdatePlayerShip;
+
+            public delegate void e_UpdateSelectedTarget(Transform t);
+            public static e_UpdateSelectedTarget EUpdateSelectedTarget;
+
+            public delegate void e_UpdatePendingTarget(Transform t, float progress, float max);
+            public static e_UpdatePendingTarget EUpdatePendingTarget;
         }
         #endregion
     }

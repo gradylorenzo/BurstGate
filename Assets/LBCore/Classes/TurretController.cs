@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LBCore;
 
 [RequireComponent(typeof(Animator))]
 public class TurretController : MonoBehaviour
@@ -15,13 +16,17 @@ public class TurretController : MonoBehaviour
     [Serializable]
     public struct TurretAttributes
     {
+        public string id;
+        public HardpointSize Size;
         public float LookSpeed;
         public float FireInterval;
+        public Color EffectColor;
     }
 
     public TurretAttributes Attributes;
 
     private Animator anim;
+    private AudioSource asource;
     #endregion
 
     #region MB Methods
@@ -162,12 +167,19 @@ public class TurretController : MonoBehaviour
 
     private void InitializeEffects()
     {
+        if(GetComponent<AudioSource>() != null)
+        {
+            asource = GetComponent<AudioSource>();
+        }
+
         if(effects.Length > 0)
         {
             effectInitialPositions = new Vector3[effects.Length];
             for(int i = 0; i < effects.Length; i++)
             {
                 effectInitialPositions[i] = effects[i].GetPosition(0);
+                effects[i].startColor = Attributes.EffectColor;
+                effects[i].endColor = Attributes.EffectColor;
             }
         }
     }
@@ -199,6 +211,10 @@ public class TurretController : MonoBehaviour
         {
             anim.Play("default");
             anim.Play("firing");
+            if(asource)
+            {
+                asource.PlayOneShot(asource.clip);
+            }
         }
     }
 
@@ -209,7 +225,6 @@ public class TurretController : MonoBehaviour
     public void ToggleFiring()
     {
         isActive = !isActive;
-        print("FIRING  =  " + isActive);
     }
 
     public void SetFiring(bool b)
@@ -219,6 +234,7 @@ public class TurretController : MonoBehaviour
 
     public void SetTarget (Transform t)
     {
+        SetFiring(false);
         Target = t;
     }
     #endregion
