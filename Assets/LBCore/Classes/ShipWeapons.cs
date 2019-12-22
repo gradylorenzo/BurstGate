@@ -26,17 +26,20 @@ public class ShipWeapons : MonoBehaviour
         {
             for(int i = 0; i < hardpoints.Length; i++)
             {
-                TurretController tc = turretPrefabs[i].GetComponent<TurretController>();
+                if (turretPrefabs[i] != null)
+                {
+                    TurretController tc = turretPrefabs[i].GetComponent<TurretController>();
 
-                if(tc.Attributes.Size == hardpoints[i].Size)
-                {
-                    GameObject newTurret = Instantiate(turretPrefabs[i], hardpoints[i].transform.position, hardpoints[i].transform.rotation);
-                    newTurret.transform.parent = transform;
-                    turrets.Add(newTurret.GetComponent<TurretController>());
-                }
-                else
-                {
-                    Debug.LogError("HARDPOINT/TURRET MISTMATCH  ::  SIZE");
+                    if (tc.Attributes.Size == hardpoints[i].Size)
+                    {
+                        GameObject newTurret = Instantiate(turretPrefabs[i], hardpoints[i].transform.position, hardpoints[i].transform.rotation);
+                        newTurret.transform.parent = hardpoints[i].transform;
+                        turrets.Add(newTurret.GetComponent<TurretController>());
+                    }
+                    else
+                    {
+                        Debug.LogError("HARDPOINT/TURRET MISTMATCH  ::  SIZE");
+                    }
                 }
             }
         }

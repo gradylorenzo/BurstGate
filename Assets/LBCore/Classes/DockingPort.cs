@@ -20,6 +20,8 @@ public class DockingPort : MonoBehaviour
     public Vector3 DockingPortOffset;
     public ShipDynamics sd;
 
+    public Light dockingIndicator;
+
     public void Awake()
     {
         gameObject.tag = "DockingPort";
@@ -42,6 +44,14 @@ public class DockingPort : MonoBehaviour
             {
                 sd.SetDockingPort(transform.localPosition + DockingPortOffset);
             }
+        }
+    }
+
+    public void Update()
+    {
+        if (sd != null)
+        {
+            dockingIndicator.enabled = sd.DockingState == ShipDynamics.DockingStates.OutOfRange || sd.DockingState == ShipDynamics.DockingStates.WithinRange;
         }
     }
 
