@@ -1,0 +1,21 @@
+Roadmap
+
+Done:
+Ship movement
+Inertial dampeners
+Scale Space Manager
+Jump Drive FTL
+Docking and indicator
+Trigger areas
+SS0 and SS1 cameras
+Turret aiming
+Turret firing animations
+Thruster effects
+Fenrir model and textures
+Dual Pulse Laser model and textures
+
+To Do:
+Write out full ship weapons initialization method.
+Write out full ship stats system
+Integrate ship stats with ship weapons
+Fenrir death animation
