@@ -7,10 +7,12 @@ using LBCore;
 public class PlayerShipControl : MonoBehaviour
 {
     private ShipDynamics sd;
+    private ShipWeapons sw;
 
     private void Start()
     {
         sd = GetComponent<ShipDynamics>();
+        sw = GetComponent<ShipWeapons>();
         GameManagerCore.Events.EUpdatePlayerShip(sd);
     }
 
@@ -25,6 +27,8 @@ public class PlayerShipControl : MonoBehaviour
 
             sd.ApplyThrust(new Vector3(x, y, z));
             sd.ApplyTorque(t);
+
+            
         }
     }
 
@@ -40,6 +44,11 @@ public class PlayerShipControl : MonoBehaviour
             if (Input.GetButtonDown("CONTROL_TOGGLE_INERTIAL_DAMPENERS"))
             {
                 sd.ToggleInertialDampeners();
+            }
+
+            if (Input.GetButtonDown("CONTROL_TOGGLE_FIRING"))
+            {
+                sw.ToggleTurretFire();
             }
         }
     }

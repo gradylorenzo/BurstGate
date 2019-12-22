@@ -21,7 +21,26 @@ public class TurretController : MonoBehaviour
 
     public TurretAttributes Attributes;
 
-    public bool useSmoothMovement = true;
+    private Animator anim;
+    #endregion
+
+    #region MB Methods
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+        InitializeEffects();
+    }
+
+    private void Update()
+    {
+        DoTurretRotation();
+
+        DoFireLoop();
+    }
+    #endregion
+
+    #region Rotation
+    private bool useSmoothMovement = false;
     private bool isAligned
     {
         get
@@ -44,25 +63,6 @@ public class TurretController : MonoBehaviour
         }
     }
 
-    private Animator anim;
-    #endregion
-
-    #region MB Methods
-    private void Start()
-    {
-        anim = GetComponent<Animator>();
-        InitializeEffects();
-    }
-
-    private void Update()
-    {
-        DoTurretRotation();
-
-        DoFireLoop();
-    }
-    #endregion
-
-    #region Rotation
     private Vector3 targetPos
     {
         get
@@ -79,9 +79,6 @@ public class TurretController : MonoBehaviour
     }
     private float MinBarrelAngle = -180;
     private float MaxBarrelAngle = 0;
-
-
-    
 
     private void DoTurretRotation()
     {
@@ -175,11 +172,6 @@ public class TurretController : MonoBehaviour
         }
     }
 
-    public void ToggleFiring()
-    {
-        isActive = !isActive;
-    }
-
     private void DoFireLoop()
     {
         for(int i = 0; i < effects.Length; i++)
@@ -194,7 +186,6 @@ public class TurretController : MonoBehaviour
             if(Time.time > nextFireTime)
             {
                 StartCoroutine("Fire");
-                print("FIRED  |  " + Time.time.ToString("##.#"));
                 nextFireTime = Time.time + Attributes.FireInterval;
             }
         }
@@ -202,12 +193,33 @@ public class TurretController : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        float d = UnityEngine.Random.Range(0, 0.25f);
-
+        float d = UnityEngine.Random.Range(0, Attributes.FireInterval / 2);
         yield return new WaitForSeconds(d);
-        anim.StopPlayback();
-        anim.SetTrigger("AnimateFiring");
+        if (isAligned)
+        {
+            anim.Play("default");
+            anim.Play("firing");
+        }
     }
 
+    #endregion
+
+    #region Public Methods
+
+    public void ToggleFiring()
+    {
+        isActive = !isActive;
+        print("FIRING  =  " + isActive);
+    }
+
+    public void SetFiring(bool b)
+    {
+        isActive = b;
+    }
+
+    public void SetTarget (Transform t)
+    {
+        Target = t;
+    }
     #endregion
 }
