@@ -10,11 +10,6 @@ public class ShipWeapons : MonoBehaviour
     public List<TurretController> turrets = new List<TurretController>();
     public Hardpoint[] hardpoints;
 
-    private void Awake()
-    {
-        GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
-    }
-
     private void Start()
     {
         InitializeHardpoints();
@@ -53,7 +48,7 @@ public class ShipWeapons : MonoBehaviour
         }
     }
 
-    private void EUpdateSelectedTarget(Transform t)
+    public void UpdateSelectedTarget(Transform t)
     {
         foreach(TurretController turret in turrets)
         {

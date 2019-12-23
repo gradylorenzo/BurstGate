@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,19 @@ namespace LBCore
         public void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+            GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
+            GameManagerCore.Events.EUpdatePendingSelection += EUpdatePendingSelection;
+        }
+
+        private void EUpdatePlayerShip(ShipDynamics sd)
+        {
+        }
+        private void EUpdateSelectedTarget(Transform t)
+        {
+        }
+        private void EUpdatePendingSelection(Transform t, float progress, float max)
+        {
         }
     }
 
@@ -35,7 +49,7 @@ namespace LBCore
             public static e_UpdateSelectedTarget EUpdateSelectedTarget;
 
             public delegate void e_UpdatePendingTarget(Transform t, float progress, float max);
-            public static e_UpdatePendingTarget EUpdatePendingTarget;
+            public static e_UpdatePendingTarget EUpdatePendingSelection;
         }
         #endregion
     }

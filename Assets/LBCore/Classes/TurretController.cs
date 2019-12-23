@@ -162,7 +162,12 @@ public class TurretController : MonoBehaviour
 
     public LineRenderer[] effects;
     private Vector3[] effectInitialPositions;
-    private bool isActive = false;
+    private bool _isActive;
+    public bool isActive
+    {
+        get { return _isActive; }
+        private set { _isActive = value; StopCoroutine("Fire"); }
+    }
     private float nextFireTime;
 
     private void InitializeEffects()
@@ -193,7 +198,7 @@ public class TurretController : MonoBehaviour
             effects[i].SetPosition(1, Vector3.forward * length);
         }
 
-        if (isActive)
+        if (_isActive)
         {
             if(Time.time > nextFireTime)
             {

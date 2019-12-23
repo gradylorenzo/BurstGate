@@ -2,17 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LBCore;
+using System;
 
 [RequireComponent(typeof(ShipDynamics))]
 public class PlayerShipControl : MonoBehaviour
 {
     private ShipDynamics sd;
     private ShipWeapons sw;
+    private bool isControlled = false;
+    public bool startHere = false;
+
+    private void Awake()
+    {
+        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+        GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
+    }
+
+    
 
     private void Start()
     {
         sd = GetComponent<ShipDynamics>();
         sw = GetComponent<ShipWeapons>();
+        if (startHere)
+        {
+            SetControlledShip();
+        }    
+    }
+
+    public void SetControlledShip()
+    {
         GameManagerCore.Events.EUpdatePlayerShip(sd);
     }
 
@@ -23,7 +42,7 @@ public class PlayerShipControl : MonoBehaviour
         float z = 0;
         float t = 0;
 
-        if (!GameManagerCore.isUsingInterface)
+        if (!GameManagerCore.isUsingInterface && isControlled)
         {
             x = Input.GetAxis("CONTROL_X");
             y = Input.GetAxis("CONTROL_Y");
@@ -36,7 +55,7 @@ public class PlayerShipControl : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManagerCore.isUsingInterface)
+        if (!GameManagerCore.isUsingInterface && isControlled)
         {
             if (Input.GetButtonDown("CONTROL_DOCK"))
             {
@@ -54,4 +73,19 @@ public class PlayerShipControl : MonoBehaviour
             }
         }
     }
+
+    #region EventCallbacks
+    private void EUpdateSelectedTarget(Transform t)
+    {
+        if (isControlled)
+        {
+            sw.UpdateSelectedTarget(t);
+        }
+    }
+
+    private void EUpdatePlayerShip(ShipDynamics sd)
+    {
+        isControlled = sd == this.sd;
+    }
+    #endregion
 }

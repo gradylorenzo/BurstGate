@@ -18,7 +18,7 @@ public class Targetable : MonoBehaviour
     private void OnMouseUp()
     {
         isBeingTargeted = false;
-        GameManagerCore.Events.EUpdatePendingTarget(null, 1, 1);
+        GameManagerCore.Events.EUpdatePendingSelection(null, 1, 1);
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class Targetable : MonoBehaviour
             }
             else
             {
-                GameManagerCore.Events.EUpdatePendingTarget(transform, ((mouseDownTime + timeToLock) - Time.time), timeToLock);
+                GameManagerCore.Events.EUpdatePendingSelection(transform, ((mouseDownTime + timeToLock) - Time.time), timeToLock);
             }
         }
     }

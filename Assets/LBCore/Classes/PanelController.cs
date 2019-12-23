@@ -22,7 +22,7 @@ public class PanelController : MonoBehaviour
     public void Awake()
     {
         GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
-        GameManagerCore.Events.EUpdatePendingTarget += EUpdatePendingTarget;
+        GameManagerCore.Events.EUpdatePendingSelection += EUpdatePendingTarget;
         GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
     }
 
