@@ -27,8 +27,6 @@ public class MouseOrbit : MonoBehaviour
     public int unlockThreshold = 5;
     public bool spinUnlocked = false;
 
-    public GameObject[] SSCameras;
-
     float x = 0.0f;
     float y = 0.0f;
 
@@ -106,15 +104,6 @@ public class MouseOrbit : MonoBehaviour
             transform.position = position;
 
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles);
-        }
-
-        foreach (GameObject go in SSCameras)
-        {
-            go.transform.rotation = this.transform.rotation;
-        }
-        if (SSCameras.Length > 0)
-        {
-            SSCameras[0].transform.position = transform.position / 1000;
         }
     }
 
