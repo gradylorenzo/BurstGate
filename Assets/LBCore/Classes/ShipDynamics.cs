@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using BGCore;
-using BGCore.GlobalVariables;
+using BGCore.Constants;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipDynamics : MonoBehaviour
@@ -36,6 +36,15 @@ public class ShipDynamics : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         AvailableDock = null;
+    }
+
+    private void FixedUpdate()
+    {
+        FloatingOriginUpdate();
+
+        Docking();
+
+        CorrectRotationalDrift();
     }
 
     public float CurrentVelocity = 0;
@@ -196,18 +205,9 @@ public class ShipDynamics : MonoBehaviour
 
     #endregion
 
-    #region ScaleSpaceUpdate
+    #region Floating Origin Update
     public bool doScaleSpaceUpdate = false;
     public float FloatingOriginUpdateThreshhold = 50.0f;
-
-    private void FixedUpdate()
-    {
-        FloatingOriginUpdate();
-
-        Docking();
-
-        CorrectRotationalDrift();
-    }
 
     private void FloatingOriginUpdate()
     {
@@ -217,7 +217,6 @@ public class ShipDynamics : MonoBehaviour
 
             if(rbpositionv2.magnitude > Constants.FloatingOriginUpdateThreshhold)
             {
-                
                 Vector3 oldVelocity = rb.velocity;
                 Vector3 oldPosition = rb.position;
                 GameManager.FloatingOrigin.UpdateFloatingOriginOffset(oldPosition, GameManager.FloatingOrigin.UpdateOffsetMode.Additive);

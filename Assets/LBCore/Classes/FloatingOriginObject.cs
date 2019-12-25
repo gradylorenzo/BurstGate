@@ -6,26 +6,17 @@ using System;
 
 public class FloatingOriginObject : MonoBehaviour
 {
-    private Vector3 originalPosition;
 
     private void Awake()
     {
-        GameManager.Events.EFloatingOriginOffsetUpdated += EFloatingOriginOffsetUpdated;
+        GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
     }
 
-    private void Start()
+    private void EFloatingOriginOffsetDelta(DoubleVector2 v)
     {
-        originalPosition = transform.position;
-    }
+        Vector2 single = DoubleVector2.ToVector2(v);
+        Vector3 offset = new Vector3(single.x, 0, single.y);
 
-    private void EFloatingOriginOffsetUpdated(DoubleVector2 v)
-    {
-        Vector3 oldPosition = transform.position;
-
-        Vector2 offset = DoubleVector2.ToVector2(v);
-        Vector3 localOffset = new Vector3(offset.x, 0, offset.y);
-
-        Vector3 newPosition = oldPosition - localOffset;
-        transform.position = newPosition;
+        transform.position -= offset;
     }
 }

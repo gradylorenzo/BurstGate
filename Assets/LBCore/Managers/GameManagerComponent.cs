@@ -14,9 +14,13 @@ namespace BGCore
             GameManager.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
             GameManager.Events.EUpdatePendingSelection += EUpdatePendingSelection;
             GameManager.Events.EFloatingOriginOffsetUpdated += EFloatingOriginOffsetUpdated;
+            GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
         }
 
         private void EFloatingOriginOffsetUpdated(DoubleVector2 v)
+        {
+        }
+        private void EFloatingOriginOffsetDelta(DoubleVector2 v)
         {
         }
         private void EUpdatePlayerShip(ShipDynamics sd)
@@ -58,6 +62,7 @@ namespace BGCore
 
             public delegate void e_FloatingOriginOffsetUpdated(DoubleVector2 v);
             public static e_FloatingOriginOffsetUpdated EFloatingOriginOffsetUpdated;
+            public static e_FloatingOriginOffsetUpdated EFloatingOriginOffsetDelta;
         }
         #endregion
 
@@ -68,32 +73,23 @@ namespace BGCore
                 Additive,
                 Overwrite
             }
+            private static DoubleVector2 dv2_lastOffset;
             private static DoubleVector2 dv2_currentOffset;
+            private static DoubleVector2 dv2_offsetDelta;
             public static DoubleVector2 currentOffset
             {
                 get { return dv2_currentOffset; }
                 private set { dv2_currentOffset = value; }
             }
-            public static void UpdateFloatingOriginOffset(DoubleVector2 offset, UpdateOffsetMode mode)
+            public static DoubleVector2 offsetDelta
             {
-                if(mode == UpdateOffsetMode.Additive)
-                {
-                    currentOffset += offset;
-                }
-                else if(mode == UpdateOffsetMode.Overwrite)
-                {
-                    currentOffset = offset;
-                }
-                else
-                {
-                    Debug.LogError("UpdateOffsetMode must equal 'Additive' or 'Overwrite'. You bad. Stop hacking.");
-                }
-
-                Events.EFloatingOriginOffsetUpdated(dv2_currentOffset);
+                get { return dv2_offsetDelta; }
+                private set { dv2_offsetDelta = value; }
             }
 
             public static void UpdateFloatingOriginOffset(Vector3 offset, UpdateOffsetMode mode)
             {
+                dv2_lastOffset = dv2_currentOffset;
                 Vector2 newOffset = new Vector2(offset.x, offset.z);
                 DoubleVector2 dv2_newOffset = DoubleVector2.FromVector2(newOffset);
 
@@ -110,7 +106,10 @@ namespace BGCore
                     Debug.LogError("UpdateOffsetMode must equal 'Additive' or 'Overwrite'. You bad. Stop hacking.");
                 }
 
+                dv2_offsetDelta = dv2_currentOffset - dv2_lastOffset;
+                Debug.Log(dv2_offsetDelta.ToString());
                 Events.EFloatingOriginOffsetUpdated(dv2_currentOffset);
+                Events.EFloatingOriginOffsetDelta(dv2_offsetDelta);
             }
         }
     }
