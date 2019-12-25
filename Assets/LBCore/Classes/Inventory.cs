@@ -5,5 +5,5 @@ using BGCore;
 
 public class Inventory : MonoBehaviour
 {
-    public Resource[] resources;
+    public DataTypes.Resource[] resources;
 }

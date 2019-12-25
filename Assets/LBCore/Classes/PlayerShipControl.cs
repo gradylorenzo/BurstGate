@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LBCore;
+using BGCore;
 using System;
 
 [RequireComponent(typeof(ShipDynamics))]
@@ -14,8 +14,8 @@ public class PlayerShipControl : MonoBehaviour
 
     private void Awake()
     {
-        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
-        GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
+        GameManager.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+        GameManager.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
     }
 
     
@@ -32,7 +32,7 @@ public class PlayerShipControl : MonoBehaviour
 
     public void SetControlledShip()
     {
-        GameManagerCore.Events.EUpdatePlayerShip(sd);
+        GameManager.Events.EUpdatePlayerShip(sd);
     }
 
     private void FixedUpdate()
@@ -42,7 +42,7 @@ public class PlayerShipControl : MonoBehaviour
         float z = 0;
         float t = 0;
 
-        if (!GameManagerCore.isUsingInterface && isControlled)
+        if (!GameManager.isUsingInterface && isControlled)
         {
             x = Input.GetAxis("CONTROL_X");
             y = Input.GetAxis("CONTROL_Y");
@@ -55,7 +55,7 @@ public class PlayerShipControl : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManagerCore.isUsingInterface && isControlled)
+        if (!GameManager.isUsingInterface && isControlled)
         {
             if (Input.GetButtonDown("CONTROL_DOCK"))
             {
@@ -86,6 +86,7 @@ public class PlayerShipControl : MonoBehaviour
     private void EUpdatePlayerShip(ShipDynamics sd)
     {
         isControlled = sd == this.sd;
+        this.sd.isControlled = isControlled;
     }
     #endregion
 }

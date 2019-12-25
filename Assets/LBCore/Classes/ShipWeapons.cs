@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LBCore;
+using BGCore;
 using System;
 
 public class ShipWeapons : MonoBehaviour

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LBCore;
+using BGCore;
 
 [RequireComponent(typeof(Animator))]
 public class TurretController : MonoBehaviour

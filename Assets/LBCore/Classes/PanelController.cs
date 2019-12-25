@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using LBCore;
+using BGCore;
 using System;
 
 public class PanelController : MonoBehaviour
@@ -21,9 +21,9 @@ public class PanelController : MonoBehaviour
 
     public void Awake()
     {
-        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
-        GameManagerCore.Events.EUpdatePendingSelection += EUpdatePendingTarget;
-        GameManagerCore.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
+        GameManager.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+        GameManager.Events.EUpdatePendingSelection += EUpdatePendingTarget;
+        GameManager.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
     }
 
     private void EUpdatePendingTarget(Transform t, float progress, float max)

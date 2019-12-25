@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using BGCore;
 using BGCore.GlobalVariables;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -23,6 +24,14 @@ public class ShipDynamics : MonoBehaviour
     [SerializeField]
     public ShipDynamicsAttributes Attributes;
     public Rigidbody rb;
+
+    private bool b_isControlled;
+    public bool isControlled
+    {
+        get { return b_isControlled; }
+        set { b_isControlled = value; }
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,10 +43,7 @@ public class ShipDynamics : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void AllowScaleSpaceUpdate()
-    {
 
-    }
     public void ToggleInertialDampeners()
     {
         useDampeners = !useDampeners;
@@ -55,10 +61,9 @@ public class ShipDynamics : MonoBehaviour
             rb.AddTorque(dir);
         }
     }
-
     public void WarpToPoint(Vector2 destination)
     {
-        rb.position = destination - ScaleSpaceManager.ScaleSpaceOffset;
+        throw new NotImplementedException();
     }
     #endregion
 
@@ -197,23 +202,41 @@ public class ShipDynamics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (doScaleSpaceUpdate)
-        {
-            if (rb.position.magnitude > FloatingOriginUpdateThreshhold)
-            {
-                Vector3 oldVelocity = rb.velocity;
-                rb.velocity = oldVelocity;
+        FloatingOriginUpdate();
 
+        Docking();
+
+        CorrectRotationalDrift();
+    }
+
+    private void FloatingOriginUpdate()
+    {
+        if (b_isControlled)
+        {
+            Vector2 rbpositionv2 = new Vector2(rb.position.x, rb.position.z);
+
+            if(rbpositionv2.magnitude > Constants.FloatingOriginUpdateThreshhold)
+            {
+                
+                Vector3 oldVelocity = rb.velocity;
                 Vector3 oldPosition = rb.position;
-                ScaleSpaceManager.UpdateScaleSpaceOffset(oldPosition);
+                GameManager.FloatingOrigin.UpdateFloatingOriginOffset(oldPosition, GameManager.FloatingOrigin.UpdateOffsetMode.Additive);
                 Vector3 newPosition = Vector3.zero;
                 newPosition.x = 0;
                 newPosition.y = oldPosition.y;
                 newPosition.z = 0;
                 rb.position = newPosition;
+                rb.velocity = oldVelocity;
             }
         }
+        else
+        {
+            //Allow this ship to recieve calls from FOM
+        }
+    }
 
+    private void Docking()
+    {
         if (!isDocked)
         {
             if (rb.position.y > 500 || rb.position.y < 0)
@@ -232,8 +255,6 @@ public class ShipDynamics : MonoBehaviour
             rb.position = Vector3.MoveTowards(rb.position, pos, 0.01f);
             rb.velocity = Vector3.zero;
         }
-
-        CorrectRotationalDrift();
     }
 
     private void CorrectRotationalDrift()

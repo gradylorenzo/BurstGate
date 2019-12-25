@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LBCore
+namespace BGCore
 {
     public enum HardpointSize
     {

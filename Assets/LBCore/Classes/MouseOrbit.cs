@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using LBCore;
+using BGCore;
 using System;
 
 [AddComponentMenu("Camera-Control/Mouse Orbit with Zoom")]
@@ -33,7 +33,7 @@ public class MouseOrbit : MonoBehaviour
     // Use this for initialization
     private void Awake()
     {
-        GameManagerCore.Events.EUpdatePlayerShip += EUpdatePlayerShip;
+        GameManager.Events.EUpdatePlayerShip += EUpdatePlayerShip;
     }
 
     private void EUpdatePlayerShip(ShipDynamics sd)

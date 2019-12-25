@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using LBCore;
+using BGCore;
 
 public class Targetable : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class Targetable : MonoBehaviour
     private void OnMouseUp()
     {
         isBeingTargeted = false;
-        GameManagerCore.Events.EUpdatePendingSelection(null, 1, 1);
+        GameManager.Events.EUpdatePendingSelection(null, 1, 1);
     }
 
     private void Update()
@@ -27,11 +27,11 @@ public class Targetable : MonoBehaviour
         {
             if (Time.time > mouseDownTime + timeToLock)
             {
-                GameManagerCore.Events.EUpdateSelectedTarget(transform);
+                GameManager.Events.EUpdateSelectedTarget(transform);
             }
             else
             {
-                GameManagerCore.Events.EUpdatePendingSelection(transform, ((mouseDownTime + timeToLock) - Time.time), timeToLock);
+                GameManager.Events.EUpdatePendingSelection(transform, ((mouseDownTime + timeToLock) - Time.time), timeToLock);
             }
         }
     }
