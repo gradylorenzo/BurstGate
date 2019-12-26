@@ -13,15 +13,14 @@ Turret firing animations
 Thruster effects
 Fenrir model and textures
 Dual Pulse Laser model and textures
-
-To Do:
 Rewrite floating origin system
 	ScaleSpaceObject no longer neccessary
 	FloatingOriginObject needs to be written
 	Uncontrolled ships need to move with floating origin
-
 Write out full ship weapons initialization method.
 Write out full ship stats system
+
+To Do:
 Integrate ship stats with ship weapons
 Fenrir death animation
 FTL Bookmarks

@@ -15,15 +15,15 @@ public class ShipCore : MonoBehaviour
     private Rigidbody rb;
     #endregion
 
-    #region stats
+    #region Stats
     public StatSheet BaseStats;
 
     #region ModiferStack
-    public List<CoreModifier> coreModifiers = new List<CoreModifier>();
+    private List<CoreModifier> coreModifiers = new List<CoreModifier>();
     private List<BatteryModifier> batteryModifiers = new List<BatteryModifier>();
     private List<DefenseModifier> defenseModifiers = new List<DefenseModifier>();
     private List<OffenseModifier> offenseModifiers = new List<OffenseModifier>();
-    public List<MobilityModifier> mobilityModifiers = new List<MobilityModifier>();
+    private List<MobilityModifier> mobilityModifiers = new List<MobilityModifier>();
     #endregion
 
     public StatSheet CurrentStats;
@@ -78,17 +78,71 @@ public class ShipCore : MonoBehaviour
 
     private void CalculateBatteryBonuses()
     {
+        BatteryStats allPercentageBonuses = new BatteryStats(1, 1, 1);
+        BatteryStats allFlatBonuses = new BatteryStats();
+        
+        foreach(BatteryModifier m in batteryModifiers)
+        {
+            if(m.type == ModifierType.Percentage)
+            {
+                allPercentageBonuses += m.modifier;
+            }
+            else
+            {
+                allFlatBonuses += m.modifier;
+            }
+        }
 
+        CurrentStats.Battery = BaseStats.Battery * allPercentageBonuses;
+        CurrentStats.Battery += allFlatBonuses;
     }
 
     private void CalculateDefenseBonuses()
     {
+        ResistanceProfile ShieldResPercentage = new ResistanceProfile(1, 1, 1);
+        ResistanceProfile HullResPercentage = new ResistanceProfile(1, 1, 1);
+        DefenseStats allPercentageBonuses = new DefenseStats(1, 1, 1, 1, 1, ShieldResPercentage, HullResPercentage);
+        DefenseStats allFlatBonuses = new DefenseStats();
 
+        foreach(DefenseModifier m in defenseModifiers)
+        {
+            if(m.type == ModifierType.Percentage)
+            {
+                allPercentageBonuses += m.modifier;
+            }
+            else
+            {
+                allFlatBonuses += m.modifier;
+            }
+        }
+
+        CurrentStats.Defense = BaseStats.Defense * allPercentageBonuses;
+        CurrentStats.Defense += allFlatBonuses;
     }
 
     private void CalculateOffenseBonuses()
     {
+        AttackProfile la = new AttackProfile(1, 1);
+        AttackProfile ra = new AttackProfile(1, 1);
+        AttackProfile mi = new AttackProfile(1, 1);
+        AttackProfile re = new AttackProfile(1, 1);
+        OffenseStats allPercentageBonuses = new OffenseStats(la, ra, mi, re);
+        OffenseStats allFlatBonuses = new OffenseStats();
 
+        foreach(OffenseModifier m in offenseModifiers)
+        {
+            if(m.type == ModifierType.Percentage)
+            {
+                allPercentageBonuses += m.modifier;
+            }
+            else
+            {
+                allFlatBonuses += m.modifier;
+            }
+        }
+
+        CurrentStats.Attack = BaseStats.Attack * allPercentageBonuses;
+        CurrentStats.Attack += allFlatBonuses;
     }
 
     private void CalculateMobilityBonus()

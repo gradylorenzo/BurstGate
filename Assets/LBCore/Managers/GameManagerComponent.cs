@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BGCore.Data;
+
 namespace BGCore
 {
     public class GameManagerComponent : MonoBehaviour
@@ -36,7 +37,6 @@ namespace BGCore
         private void EUpdatePendingSelection(Transform t, float progress, float max)
         {
         }
-
     }
 
     public static class GameManager
@@ -70,6 +70,7 @@ namespace BGCore
         }
         #endregion
 
+        #region Floating Origin
         public static class FloatingOrigin
         {
             public enum UpdateOffsetMode
@@ -115,5 +116,7 @@ namespace BGCore
                 Events.EFloatingOriginOffsetDelta(dv2_offsetDelta);
             }
         }
+
+        #endregion
     }
 }

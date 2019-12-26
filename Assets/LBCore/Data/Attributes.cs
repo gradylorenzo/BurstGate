@@ -221,14 +221,14 @@ namespace BGCore.Data
     public struct OffenseStats
     {
         #region Members
-        public AttackBonus LaserBonus;
-        public AttackBonus RailgunBonus;
-        public AttackBonus MissileBonus;
-        public AttackBonus RepairerBonus;
+        public AttackProfile LaserBonus;
+        public AttackProfile RailgunBonus;
+        public AttackProfile MissileBonus;
+        public AttackProfile RepairerBonus;
         #endregion
 
         #region Constructors
-        public OffenseStats(AttackBonus l, AttackBonus ra, AttackBonus m, AttackBonus re)
+        public OffenseStats(AttackProfile l, AttackProfile ra, AttackProfile m, AttackProfile re)
         {
             LaserBonus = l;
             RailgunBonus = ra;
@@ -367,7 +367,7 @@ namespace BGCore.Data
     }
 
     [Serializable]
-    public struct AttackBonus
+    public struct AttackProfile
     {
         #region Members
         public float Damage;
@@ -375,7 +375,7 @@ namespace BGCore.Data
         #endregion
 
         #region Constructors
-        public AttackBonus(float d, float r)
+        public AttackProfile(float d, float r)
         {
             Damage = d;
             Range = r;
@@ -383,21 +383,21 @@ namespace BGCore.Data
         #endregion
 
         #region Operators
-        public static AttackBonus operator +(AttackBonus a1, AttackBonus a2)
+        public static AttackProfile operator +(AttackProfile a1, AttackProfile a2)
         {
-            return new AttackBonus(a1.Damage + a2.Damage, a1.Range + a2.Range);
+            return new AttackProfile(a1.Damage + a2.Damage, a1.Range + a2.Range);
         }
-        public static AttackBonus operator -(AttackBonus a1, AttackBonus a2)
+        public static AttackProfile operator -(AttackProfile a1, AttackProfile a2)
         {
-            return new AttackBonus(a1.Damage - a2.Damage, a1.Range - a2.Range);
+            return new AttackProfile(a1.Damage - a2.Damage, a1.Range - a2.Range);
         }
-        public static AttackBonus operator *(AttackBonus a1, AttackBonus a2)
+        public static AttackProfile operator *(AttackProfile a1, AttackProfile a2)
         {
-            return new AttackBonus(a1.Damage * a2.Damage, a1.Range * a2.Range);
+            return new AttackProfile(a1.Damage * a2.Damage, a1.Range * a2.Range);
         }
-        public static AttackBonus operator /(AttackBonus a1, AttackBonus a2)
+        public static AttackProfile operator /(AttackProfile a1, AttackProfile a2)
         {
-            return new AttackBonus(a1.Damage / a2.Damage, a1.Range / a2.Range);
+            return new AttackProfile(a1.Damage / a2.Damage, a1.Range / a2.Range);
         }
         #endregion
     }
