@@ -7,10 +7,18 @@ using BGCore.Data;
 
 public class FloatingOriginObject : MonoBehaviour
 {
-
     private void Awake()
     {
+        
         GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
+    }
+
+    private void Start()
+    {
+        if (this.gameObject.isStatic)
+        {
+            Notify.Log(Notify.Intent.Warning, "FloatingOriginObject.gameObject is marked as static!");
+        }
     }
 
     private void EFloatingOriginOffsetDelta(DoubleVector2 v)

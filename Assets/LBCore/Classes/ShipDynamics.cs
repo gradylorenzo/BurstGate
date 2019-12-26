@@ -30,6 +30,7 @@ public class ShipDynamics : MonoBehaviour
     private void Awake()
     {
         GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
+        GameManager.Events.EUpdatePlayerShip += EUpdatePlayerShip;
     }
 
     private void Start()
@@ -332,4 +333,9 @@ public class ShipDynamics : MonoBehaviour
         }
     }
     #endregion
+
+    private void EUpdatePlayerShip(ShipDynamics sd)
+    {
+        isControlled = this == sd;
+    }
 }

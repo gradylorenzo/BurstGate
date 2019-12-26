@@ -11,11 +11,10 @@ public static class Notify
         Warning = 2,
         Error = 4
     }
+    private static bool useDebugLog = false;
 
     public static void Log(Intent intent, string text)
     {
-        bool useDebugLog = false;
-
         if (useDebugLog)
         {
             switch (intent)
@@ -39,6 +38,16 @@ public static class Notify
         }
 
         ENotifyLog(intent, text);
+    }
+
+    public static void Log(string text)
+    {
+        if (useDebugLog)
+        {
+            Debug.Log(text);
+        }
+
+        ENotifyLog(Intent.Message, text);
     }
 
     public delegate void e_NotifyLog(Intent intent, string text);

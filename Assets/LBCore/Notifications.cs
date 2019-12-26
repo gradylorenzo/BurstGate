@@ -6,40 +6,40 @@ using UnityEngine.UI;
 using BGCore;
 using BGCore.Data;
 
-[RequireComponent(typeof(Text))]
 public class Notifications : MonoBehaviour
 {
     public string[] colors;
 
-    private float currentOffset;
-    private float wantedOffset;
-    private Text textBox;
+    public Text notificationBox;
+    public Text specsBox;
+    private string notifications = "";
+    private string specs;
+    private string GetSystemInfo()
+    {
+        string cpu;
+        string cpuSpeed;
+        string gpu;
+        string gpuDriver;
+        string gpuMem;
+        string os;
 
-    private string notifications;
-    private string offset;
-    private string delta;
+        cpu = "CPU Type: " + SystemInfo.processorType + "\n";
+        cpuSpeed = "CPU Speed: " + SystemInfo.processorFrequency.ToString() + " MHz\n";
+        gpu = "GPU Vendor: " + SystemInfo.graphicsDeviceName + "\n";
+        gpuDriver = "GPU API: " + SystemInfo.graphicsDeviceVersion + "\n";
+        gpuMem = "GPU Memory: " + SystemInfo.graphicsMemorySize + " MB\n";
+        os = "OS: " + SystemInfo.operatingSystem + "\n";
+
+        return "Created by Grady Lorenzo\nDiscord: Nyxton#6759\n" + cpu + cpuSpeed + gpu + gpuDriver + gpuMem + os;
+    }
 
     public void Awake()
     {
         Notify.ENotifyLog += ENotifyLog;
-        GameManager.Events.EFloatingOriginOffsetUpdated += EFloatingOriginOffsetUpdated;
-        GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
-        textBox = GetComponent<Text>();
-    }
-
-    private void EFloatingOriginOffsetDelta(DoubleVector2 v)
-    {
-        delta = v.ToString("0.000");
-    }
-
-    private void EFloatingOriginOffsetUpdated(DoubleVector2 v)
-    {
-        offset = v.ToString("0.000");
-    }
-
-    private void Start()
-    {
         Notify.Log(Notify.Intent.Success, "Notify.Log Started!");
+
+        specs = GetSystemInfo();
+        specsBox.text = specs;
     }
 
     private void ENotifyLog(Notify.Intent intent, string text)
@@ -60,6 +60,6 @@ public class Notifications : MonoBehaviour
 
     private void FixedUpdate()
     {
-        textBox.text = notifications + "\n\nOffset:\n" + offset + "\n\nOffset Delta:\n" + delta;
+        notificationBox.text = notifications;
     }
 }

@@ -18,8 +18,6 @@ public class PlayerShipControl : MonoBehaviour
         GameManager.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
     }
 
-    
-
     private void Start()
     {
         sd = GetComponent<ShipDynamics>();
@@ -86,7 +84,7 @@ public class PlayerShipControl : MonoBehaviour
     private void EUpdatePlayerShip(ShipDynamics sd)
     {
         isControlled = sd == this.sd;
-        this.sd.isControlled = isControlled;
     }
+
     #endregion
 }
