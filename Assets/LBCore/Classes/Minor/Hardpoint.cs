@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BGCore;
+using BGCore.Data;
 
 public class Hardpoint : MonoBehaviour
 {
-    public HardpointSize Size;
+    public Size Size;
 }

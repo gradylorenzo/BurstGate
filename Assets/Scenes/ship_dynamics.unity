@@ -387,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 645810927825649722, guid: 6818bfb97dea95d48badf4638e6074b7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 345
       objectReference: {fileID: 0}
     - target: {fileID: 645810927825649722, guid: 6818bfb97dea95d48badf4638e6074b7,
         type: 3}
@@ -609,6 +609,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: m_Pitch
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: DopplerLevel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: MinDistance
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6242656298550643608, guid: 6818bfb97dea95d48badf4638e6074b7,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 6287352345979818637, guid: 6818bfb97dea95d48badf4638e6074b7,
         type: 3}
@@ -2029,12 +2059,89 @@ MonoBehaviour:
   m_GameObject: {fileID: 1824332336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7ceefcdfcfc2e5478fd67b349c944fb, type: 3}
+  m_Script: {fileID: 11500000, guid: c0c25e3c17ea4bc46a7de1dddccb0938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToLock: 1
-  mouseDownTime: 0
-  isBeingTargeted: 0
+  BaseStats:
+    Core:
+      mass: 275000000
+      size: 0
+      signatureRadius: 0
+      sensorResolution: 0
+    Battery:
+      MaxCapacity: 0
+      CurrentCapacity: 0
+      RechargeRate: 0
+    Defense:
+      shieldMaxHitpoints: 0
+      shieldCurrentHitpoints: 0
+      shieldRechargeRate: 0
+      hullMaxHitpoints: 0
+      hullCurrentHitpoints: 0
+      shieldResistance:
+        EM: 0
+        Kinetic: 0
+        Thermal: 0
+      hullResistance:
+        EM: 0
+        Kinetic: 0
+        Thermal: 0
+    Attack:
+      LaserBonus:
+        Damage: 0
+        Range: 0
+      RailgunBonus:
+        Damage: 0
+        Range: 0
+      MissileBonus:
+        Damage: 0
+        Range: 0
+      RepairerBonus:
+        Damage: 0
+        Range: 0
+    Mobility:
+      Thrust: {x: 225000000, y: 225000000, z: 500000000}
+      Torque: 0.1
+      InertialDampenerMultiplier: 1.75
+      JumpRange: 1
+      JumpSpoolTime: 1
+      JumpChargeRate: 1
+--- !u!114 &1824332344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824332336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfd3676b75a6c1f4e9ba513be7824b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2044768847
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using BGCore.Data;
 namespace BGCore
 {
     public class GameManagerComponent : MonoBehaviour

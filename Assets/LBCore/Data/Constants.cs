@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BGCore.Constants
+namespace BGCore
 {
     public static class Constants
     {

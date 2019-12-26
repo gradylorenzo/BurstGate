@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BGCore;
+using BGCore.Data;
 
 [RequireComponent(typeof(Animator))]
 public class TurretController : MonoBehaviour
@@ -17,7 +18,7 @@ public class TurretController : MonoBehaviour
     public struct TurretAttributes
     {
         public string id;
-        public HardpointSize Size;
+        public Size size;
         public float LookSpeed;
         public float FireInterval;
         public Color EffectColor;

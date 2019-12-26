@@ -294,7 +294,7 @@ MonoBehaviour:
   TurretBarrel: {fileID: 1617671994063357053}
   Attributes:
     id: dual_pulse_laser
-    Size: 2
+    size: 3
     LookSpeed: 0
     FireInterval: 1
     EffectColor: {r: 0, g: 1, b: 0.6661012, a: 1}

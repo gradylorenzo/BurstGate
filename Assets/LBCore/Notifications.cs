@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using BGCore;
+using BGCore.Data;
 
 [RequireComponent(typeof(Text))]
 public class Notifications : MonoBehaviour
