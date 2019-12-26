@@ -32,6 +32,11 @@ public class ShipDynamics : MonoBehaviour
         set { b_isControlled = value; }
     }
 
+    private void Awake()
+    {
+        GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -231,6 +236,16 @@ public class ShipDynamics : MonoBehaviour
         else
         {
             //Allow this ship to recieve calls from FOM
+        }
+    }
+
+    private void EFloatingOriginOffsetDelta(DoubleVector2 v)
+    {
+        if (!isControlled)
+        {
+            Vector2 single = DoubleVector2.ToVector2(v);
+            Vector3 offset = new Vector3(single.x, 0, single.y);
+            transform.position -= offset;
         }
     }
 

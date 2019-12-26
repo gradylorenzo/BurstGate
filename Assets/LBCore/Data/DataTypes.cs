@@ -243,9 +243,9 @@ namespace BGCore
             return this.GetHashCode();
         }
 
-        public override string ToString()
+        public string ToString(string format)
         {
-            string s = "x = " + x.ToString() + "  |   y = " + y.ToString();
+            string s = "x = " + x.ToString(format) + "\ny = " + y.ToString(format);
             return s;
         }
         #endregion

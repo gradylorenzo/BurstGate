@@ -10,6 +10,7 @@ namespace BGCore
         public void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            Notify.ENotifyLog += ENotifyLog;
             GameManager.Events.EUpdatePlayerShip += EUpdatePlayerShip;
             GameManager.Events.EUpdateSelectedTarget += EUpdateSelectedTarget;
             GameManager.Events.EUpdatePendingSelection += EUpdatePendingSelection;
@@ -17,6 +18,9 @@ namespace BGCore
             GameManager.Events.EFloatingOriginOffsetDelta += EFloatingOriginOffsetDelta;
         }
 
+        private void ENotifyLog(Notify.Intent intent, string text)
+        {
+        }
         private void EFloatingOriginOffsetUpdated(DoubleVector2 v)
         {
         }
@@ -103,11 +107,10 @@ namespace BGCore
                 }
                 else
                 {
-                    Debug.LogError("UpdateOffsetMode must equal 'Additive' or 'Overwrite'. You bad. Stop hacking.");
+                    Notify.Log(Notify.Intent.Error,"UpdateOffsetMode must equal 'Additive' or 'Overwrite'. You bad. Stop hacking.");
                 }
 
                 dv2_offsetDelta = dv2_currentOffset - dv2_lastOffset;
-                Debug.Log(dv2_offsetDelta.ToString());
                 Events.EFloatingOriginOffsetUpdated(dv2_currentOffset);
                 Events.EFloatingOriginOffsetDelta(dv2_offsetDelta);
             }
